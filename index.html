@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraStore — Modern E-Commerce</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Bar / Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                AuraStore
+            </a>
+            <div class="search-bar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="searchInput" placeholder="Search premium products...">
+            </div>
+            <div class="nav-actions">
+                <button class="icon-btn" id="authBtn" title="Account">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </button>
+                <button class="icon-btn cart-toggle" id="cartBtn" title="Cart">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="badge">New Season 2025</span>
+            <h1>Elevate Your Lifestyle</h1>
+            <p>Discover hand-picked premium electronics, fashion, and lifestyle essentials crafted for modern living.</p>
+            <a href="#shop" class="btn primary-btn">Explore Collection</a>
+        </div>
+    </section>
+
+    <!-- Main Store Section -->
+    <main class="main-container" id="shop">
+        <div class="filter-bar">
+            <h3>Our Products</h3>
+            <div class="categories" id="categoryFilters">
+                <button class="cat-btn active" data-category="all">All Items</button>
+                <button class="cat-btn" data-category="electronics">Electronics</button>
+                <button class="cat-btn" data-category="fashion">Fashion</button>
+                <button class="cat-btn" data-category="lifestyle">Lifestyle</button>
+            </div>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+            <!-- Products injected dynamically via JS -->
+        </div>
+    </main>
+
+    <!-- Cart Drawer -->
+    <div class="drawer-overlay" id="cartOverlay"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="drawer-header">
+            <h3>Your Shopping Cart</h3>
+            <button class="close-btn" id="closeCart">&times;</button>
+        </div>
+        <div class="drawer-body" id="cartItems">
+            <!-- Cart items injected via JS -->
+            <p class="empty-cart">Your cart is currently empty.</p>
+        </div>
+        <div class="drawer-footer" id="cartFooter" style="display: none;">
+            <div class="subtotal">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">$0.00</span>
+            </div>
+            <button class="btn primary-btn full-width" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="close-btn modal-close" id="closeProductModal">&times;</button>
+            <div class="product-detail-grid" id="productDetailContent">
+                <!-- Filled via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content checkout-content">
+            <button class="close-btn modal-close" id="closeCheckoutModal">&times;</button>
+            <h2>Secure Checkout</h2>
+            <form id="checkoutForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required placeholder="Alex Morgan">
+                </div>
+                <div class="form-group">
+                    <label>Shipping Address</label>
+                    <input type="text" required placeholder="123 Luxury Ave, Suite 4B">
+                </div>
+                <div class="form-group">
+                    <label>Select Payment Method</label>
+                    <div class="payment-methods">
+                        <label class="pay-option">
+                            <input type="radio" name="payment" value="card" checked>
+                            <span>Credit / Debit Card</span>
+                        </label>
+                        <label class="pay-option">
+                            <input type="radio" name="payment" value="paypal">
+                            <span>PayPal</span>
+                        </label>
+                        <label class="pay-option">
+                            <input type="radio" name="payment" value="cod">
+                            <span>Cash on Delivery</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="cardDetailsContainer" class="card-inputs">
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input type="text" placeholder="4242 4242 4242 4242" maxlength="19">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Expiry Date</label>
+                            <input type="text" placeholder="MM/YY" maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label>CVV</label>
+                            <input type="password" placeholder="123" maxlength="4">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn primary-btn full-width">Place Order (<span id="checkoutTotal">$0.00</span>)</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content auth-content">
+            <button class="close-btn modal-close" id="closeAuthModal">&times;</button>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Sign In</button>
+                <button class="auth-tab" data-tab="signup">Create Account</button>
+            </div>
+            <form id="authForm" class="auth-form">
+                <div class="form-group signup-field" style="display:none;">
+                    <label>Full Name</label>
+                    <input type="text" id="authName" placeholder="Alex Morgan">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="authEmail" required placeholder="alex@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="authPassword" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn primary-btn full-width" id="authSubmitBtn">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Success Notification / Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content success-content">
+            <div class="success-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h2>Order Placed Successfully!</h2>
+            <p>Thank you for shopping with AuraStore. Your order #<span id="orderId">84920</span> is being processed.</p>
+            <button class="btn primary-btn" id="continueShoppingBtn">Continue Shopping</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 AuraStore Inc. Crafted with elegance for modern shoppers.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
